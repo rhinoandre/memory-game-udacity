@@ -30,11 +30,12 @@ ul {
   /* background: url('./img/rhino.jpg') center center no-repeat; */
   background-color: var(--cards-color);
   border-radius: 15px;
+  margin: 5px;
+  font-size: 40px;
   width: var(--card-size);
   height: var(--card-size);
   line-height: var(--card-size);
   text-align: center;
-  margin: 5px;
   list-style: none;
   float: left;
   color: white;
