@@ -1,0 +1,41 @@
+:root {
+  --backgroud: #000;
+  --cards-color: #ff6f69;
+  --page-title-color: #fff;
+  --card-size: 150px;
+}
+
+body {
+  background-color: var(--backgroud);
+  margin: 0;
+  padding: 0;
+}
+
+.memory-game {
+  margin: 0 auto;
+  width: 750px;
+}
+
+.memory-game > h1 {
+  width: 100%;
+  color: var(--page-title-color);
+  text-align: center;
+}
+
+ul {
+  padding: 0;
+}
+
+.card {
+  /* background: url('./img/rhino.jpg') center center no-repeat; */
+  background-color: var(--cards-color);
+  border-radius: 15px;
+  width: var(--card-size);
+  height: var(--card-size);
+  line-height: var(--card-size);
+  text-align: center;
+  margin: 5px;
+  list-style: none;
+  float: left;
+  color: white;
+}
