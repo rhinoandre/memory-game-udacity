@@ -1,0 +1,23 @@
+{
+  "name": "memory-game-udacity",
+  "version": "1.0.0",
+  "description": "A homework for Udacity",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "parcel index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rhinoandre/memory-game-udacity.git"
+  },
+  "author": "rhinoandre@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rhinoandre/memory-game-udacity/issues"
+  },
+  "homepage": "https://github.com/rhinoandre/memory-game-udacity#readme",
+  "devDependencies": {
+    "parcel-bundler": "^1.6.2"
+  }
+}
