@@ -7,13 +7,13 @@ let cardsSelected = [];
 
 function selectCard(card) {
   if (!cardsSelected.some(cardSelected => cardSelected === card)) {
-    card.classList.remove('select');
+    card.classList.remove('unselected');
     cardsSelected.push(card);
   }
 }
 
 function hideCard(){
-  cardsSelected.forEach(card => card.classList.add('select'));
+  cardsSelected.forEach(card => card.classList.add('unselected'));
   cardsSelected = [];
 }
 
@@ -24,6 +24,7 @@ cards.forEach((card) => {
       if (cardsSelected.length === 2) {
         if (isCardsMatch(...cardsSelected)) {
           // TODO: Show 'match' animation
+          // TODO: Remove this event listener
           console.log('Cards match');
           cardsSelected = [];
         } else {

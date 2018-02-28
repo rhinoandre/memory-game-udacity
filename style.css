@@ -1,30 +1,33 @@
 :root {
-  --background: #000;
+  --background: #fff;
   --cards-color: #ff6f69;
-  --page-title-color: #fff;
+  --page-title-color: #000;
   --card-size: 145px;
+  --table-size: 620px;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 1000px) {
   :root {
     --background: #ccc;
     --card-size: 100px;
+    --table-size: 450px;
   }
 }
 
 body {
+  font-family: 'Coda', cursive;
   background-color: var(--background);
-  margin: 0;
-  padding: 0;
 }
 
 .memory-game {
-  margin: 0 auto;
-  width: 750px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   background-color: var(--cor) !important;
 }
 
-.memory-game > h1 {
+.header > h1 {
   width: 100%;
   color: var(--page-title-color);
   text-align: center;
@@ -35,27 +38,39 @@ ul {
 }
 
 .card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
   transition: 1s;
   border-radius: 15px;
-  margin: 5px;
   font-size: 40px;
   width: var(--card-size);
   height: var(--card-size);
   line-height: var(--card-size);
   background-color: var(--cards-color);
-  text-align: center;
   list-style: none;
-  float: left;
   color: white;
   transform: rotateY(180deg);
+  box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
 }
 
-.select svg {
+.cards {
+  width: var(--table-size);
+  height: var(--table-size);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 3em;
+}
+
+.unselected svg {
   display: none;
 }
 
-.select {
+.unselected {
   transition: 1s;
   background: url('./img/rhino.jpg') top left no-repeat;
-  transform: rotateY(360deg);
+  transform: rotateY(0);
 }
