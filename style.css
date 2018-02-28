@@ -2,7 +2,7 @@
   --background: #000;
   --cards-color: #ff6f69;
   --page-title-color: #fff;
-  --card-size: 150px;
+  --card-size: 145px;
 }
 
 @media (max-width: 800px) {
@@ -35,17 +35,27 @@ ul {
 }
 
 .card {
-  transition: 2s;
-  /* background: url('./img/rhino.jpg') center center no-repeat; */
-  background-color: var(--cards-color);
+  transition: 1s;
   border-radius: 15px;
   margin: 5px;
   font-size: 40px;
   width: var(--card-size);
   height: var(--card-size);
   line-height: var(--card-size);
+  background-color: var(--cards-color);
   text-align: center;
   list-style: none;
   float: left;
   color: white;
+  transform: rotateY(180deg);
+}
+
+.select svg {
+  display: none;
+}
+
+.select {
+  transition: 1s;
+  background: url('./img/rhino.jpg') top left no-repeat;
+  transform: rotateY(360deg);
 }
