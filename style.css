@@ -55,7 +55,7 @@ ul {
   box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
 }
 
-.cards {
+.gameTable {
   width: var(--table-size);
   height: var(--table-size);
   display: flex;
@@ -65,7 +65,7 @@ ul {
   margin-top: 3em;
 }
 
-.unselected svg {
+.unselecteda svg {
   display: none;
 }
 
