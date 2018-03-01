@@ -27,7 +27,7 @@ Deck.prototype.startGame = function() {
   let cardsSelected = [];
   this.cards.forEach(card => {
     card.element.addEventListener('click', event => {
-      if (card.isAlreadyMatched() || cardsSelected.some(c => c === card)) {
+      if (card.isAlreadyMatched() || cardsSelected.some(c => c === card) || cardsSelected.length > 1) {
         return;
       }
 
@@ -36,26 +36,32 @@ Deck.prototype.startGame = function() {
       card.showCard();
 
       if (cardsSelected.length === 2) {
-        handleMovement(...cardsSelected);
-        cardsSelected = [];
+        handleMovement(...cardsSelected)
+          .then(() => console.log('Cards match'))
+          .catch(() => console.log('Cards do not match'))
+          .finally(() => cardsSelected = []);
       }
     });
   });
 
   function handleMovement(card1, card2) {
-    if (card1.getType() === card2.getType()) {
-      console.log('Cards match');
-      // TODO: Show 'match' animation
-      card1.markAsMatched()
-      card2.markAsMatched()
-      // TODO: Remove this event listener
-    } else {
-      console.log('Cards do not match');
-      // TODO: Remove a point
-      // TODO: Show 'not match' animation
-      card1.hideFace();
-      card2.hideFace();
-    }
+    return new Promise((resolve, reject) => {
+      if (card1.getType() === card2.getType()) {
+        // TODO: Show 'match' animation
+        card1.markAsMatched();
+        card2.markAsMatched();
+        resolve();
+        // TODO: Remove this event listener
+      } else {
+        // TODO: Remove a point
+        // TODO: Show 'not match' animation
+        setTimeout(() => {
+          card1.hideFace();
+          card2.hideFace();
+          reject();
+        }, 3000);
+      }
+    });
   }
 }
 

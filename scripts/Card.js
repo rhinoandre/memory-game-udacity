@@ -11,7 +11,7 @@ Card.prototype.showCard = function() {
 }
 
 Card.prototype.hideFace = function() {
-  setTimeout(() => this.element.classList.add('unselected'), 3000);
+  this.element.classList.add('unselected');
 };
 
 Card.prototype.markAsMatched = function() {
