@@ -54,6 +54,8 @@ Deck.prototype.startGame = function() {
         card2.markAsMatched();
         resolve();
       } else {
+        card1.showWrongShotAnimation();
+        card2.showWrongShotAnimation();
         setTimeout(() => {
           card1.hideFace();
           card2.hideFace();

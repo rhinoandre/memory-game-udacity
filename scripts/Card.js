@@ -8,7 +8,7 @@ Card.prototype.getType = function() {
 
 Card.prototype.showCard = function() {
   this.element.classList.remove('unselected');
-}
+};
 
 Card.prototype.hideFace = function() {
   this.element.classList.add('unselected');
@@ -19,5 +19,10 @@ Card.prototype.markAsMatched = function() {
 };
 
 Card.prototype.isAlreadyMatched = function() {
-  return /matched/.test(this.element.className)
-}
+  return /matched/.test(this.element.className);
+};
+
+Card.prototype.showWrongShotAnimation = function() {
+  this.element.classList.add('wrong-shot');
+  setTimeout(() => this.element.classList.remove('wrong-shot'), 1500);
+};

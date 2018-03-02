@@ -52,7 +52,7 @@ ul {
   list-style: none;
   color: white;
   transform: rotateY(180deg);
-  box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
+  border: 1px solid salmon;
 }
 
 .gameTable {
@@ -65,7 +65,7 @@ ul {
   margin-top: 3em;
 }
 
-.unselecteda svg {
+.unselected svg {
   display: none;
 }
 
@@ -83,5 +83,16 @@ ul {
 
 .matched {
   animation-fill-mode: both;
-  animation: matched 1s 0s forwards;
+  animation: matched 1s 0.5s forwards;
+}
+
+@keyframes wrong-shot {
+  0%, 20%, 50%, 80%, 100% { transform: rotate(0); }
+  40% { transform: rotate(-6deg) translate(-12px); }
+  60% { transform: rotate(6deg) translate(12px); }
+}
+
+.wrong-shot {
+  animation-fill-mode: both;
+  animation: wrong-shot 1s 0.5s forwards;
 }
