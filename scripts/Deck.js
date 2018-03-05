@@ -1,16 +1,34 @@
 import Card from './Card';
 
+function _handleMovement(card1, card2) {
+  return new Promise((resolve, reject) => {
+    if (card1.getType() === card2.getType()) {
+      card1.markAsMatched();
+      card2.markAsMatched();
+      resolve();
+    } else {
+      card1.showWrongShotAnimation();
+      card2.showWrongShotAnimation();
+      setTimeout(() => {
+        card1.hideFace();
+        card2.hideFace();
+        reject();
+      }, 2000);
+    }
+  });
+}
+
+function _getCards(element){
+  return [...element.querySelectorAll('.card')]
+    .map(cardElement => new Card(cardElement));
+}
+
 export default function Deck(element) {
   this.element = element;
-  this.cards = _getCards.call(this);
   this.cardsSelected = [];
   this.movements = 0;
+  this.cards = _getCards(element);
   this.shuffle();
-
-  function _getCards(){
-    return [...this.element.querySelectorAll('.card')]
-      .map(cardElement => new Card(cardElement));
-  }
 }
 
 Deck.prototype.shuffle = function () {
@@ -33,7 +51,7 @@ Deck.prototype.startGame = function() {
       card.showCard();
       if (this.cardsSelected.length === 2) {
         this.onMoveChange();
-        handleMovement(...this.cardsSelected)
+        _handleMovement(...this.cardsSelected)
           .then(() => console.log('Cards match'))
           // TODO: Remove a start
           .catch(() => console.log('Cards do not match'))
@@ -41,24 +59,6 @@ Deck.prototype.startGame = function() {
       }
     });
   });
-
-  function handleMovement(card1, card2) {
-    return new Promise((resolve, reject) => {
-      if (card1.getType() === card2.getType()) {
-        card1.markAsMatched();
-        card2.markAsMatched();
-        resolve();
-      } else {
-        card1.showWrongShotAnimation();
-        card2.showWrongShotAnimation();
-        setTimeout(() => {
-          card1.hideFace();
-          card2.hideFace();
-          reject();
-        }, 2000);
-      }
-    });
-  }
 }
 
 Deck.prototype.onMoveChange = function (reset = false) {
