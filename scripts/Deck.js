@@ -2,10 +2,12 @@ import Card from './Card';
 
 export default function Deck(element) {
   this.element = element;
-  this.cards = getCards.call(this);
+  this.cards = _getCards.call(this);
+  this.cardsSelected = [];
+  this.movements = 0;
   this.shuffle();
 
-  function getCards(){
+  function _getCards(){
     return [...this.element.querySelectorAll('.card')]
       .map(cardElement => new Card(cardElement));
   }
@@ -13,36 +15,29 @@ export default function Deck(element) {
 
 Deck.prototype.shuffle = function () {
   const cache = [].concat(this.cards);
-  const suffled = [];
   const arrayLength = cache.length;
   for (var i = 0; i < arrayLength; i++) {
     let randon = Math.floor(Math.random() * cache.length);
-    // suffled.push(...cache.splice(randon, 1));
     this.element.appendChild(cache.splice(randon, 1)[0].element);
   }
 };
 
 Deck.prototype.startGame = function() {
-  let cardsSelected = [];
-  let movements = 0;
   this.cards.forEach(card => {
     card.element.addEventListener('click', event => {
-      if (card.isAlreadyMatched() || cardsSelected.some(c => c === card) || cardsSelected.length > 1) {
+      if (card.isAlreadyMatched() || this.cardsSelected.some(c => c === card) || this.cardsSelected.length > 1) {
         return;
       }
 
-      // TODO: Add a moviment
-      cardsSelected.push(card);
+      this.cardsSelected.push(card);
       card.showCard();
-      if (cardsSelected.length === 2) {
-        sendMovementsEvent.call(this, ++movements);
-        handleMovement(...cardsSelected)
-          // TODO: Show 'match' animation
+      if (this.cardsSelected.length === 2) {
+        this.onMoveChange();
+        handleMovement(...this.cardsSelected)
           .then(() => console.log('Cards match'))
-          // TODO: Remove a point
-          // TODO: Show 'not match' animation
+          // TODO: Remove a start
           .catch(() => console.log('Cards do not match'))
-          .finally(() => cardsSelected = []);
+          .finally(() => this.cardsSelected = []);
       }
     });
   });
@@ -64,18 +59,22 @@ Deck.prototype.startGame = function() {
       }
     });
   }
-
-  function sendMovementsEvent(moves) {
-    document.dispatchEvent(new CustomEvent("onmovement", {
-      detail: {
-        movements: moves
-      },
-      bubbles: true,
-      cancelable: true
-    }));
-  }
 }
 
+Deck.prototype.onMoveChange = function (reset = false) {
+  this.movements = reset ? 0 : ++this.movements;
+  document.dispatchEvent(new CustomEvent('onmovement', {
+    detail: {
+      movements: this.movements
+    },
+    bubbles: true,
+    cancelable: true
+  }));
+};
+
 Deck.prototype.resetGame = function() {
-  // this.cards
+  this.cardsSelected = [];
+  this.onMoveChange(true);
+  this.cards.forEach(card => card.reset());
+  this.shuffle();
 };

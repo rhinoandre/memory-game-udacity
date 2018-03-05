@@ -18,6 +18,11 @@ Card.prototype.markAsMatched = function() {
   this.element.classList.add('matched');
 };
 
+Card.prototype.reset = function() {
+  this.element.classList.remove('matched');
+  this.hideFace();
+};
+
 Card.prototype.isAlreadyMatched = function() {
   return /matched/.test(this.element.className);
 };
