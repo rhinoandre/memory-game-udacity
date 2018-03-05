@@ -45,6 +45,9 @@ body {
   width: 50%;
 }
 
+.reset {
+  cursor: pointer;
+}
 /* Game table */
 
 ul {
@@ -113,4 +116,17 @@ ul {
 .rotate-icon:hover {
   transition: 2s;
   transform: rotateX(180deg);
+}
+
+/* Game review */
+
+.game-review {
+  display: none;
+  position: absolute;
+  background: white;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
 }
