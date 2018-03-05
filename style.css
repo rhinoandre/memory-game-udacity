@@ -33,6 +33,20 @@ body {
   text-align: center;
 }
 
+
+.game-info {
+  display: flex;
+  width: var(--table-size);
+  flex-flow: row;
+}
+
+.game-info div {
+  text-align: center;
+  width: 50%;
+}
+
+/* Game table */
+
 ul {
   padding: 0;
 }
@@ -62,7 +76,6 @@ ul {
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  margin-top: 3em;
 }
 
 .unselected svg {
