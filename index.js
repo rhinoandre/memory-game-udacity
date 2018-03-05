@@ -1,6 +1,6 @@
 import Deck from './scripts/Deck';
 
-const deck = new Deck(document.querySelector('.gameTable'));
+const deck = new Deck(document.querySelector('.game-table'));
 deck.startGame();
 const movementsElement = document.querySelector('.movements');
 

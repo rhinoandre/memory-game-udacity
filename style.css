@@ -55,7 +55,7 @@ ul {
   border: 1px solid salmon;
 }
 
-.gameTable {
+.game-table {
   width: var(--table-size);
   height: var(--table-size);
   display: flex;
@@ -95,4 +95,9 @@ ul {
 .wrong-shot {
   animation-fill-mode: both;
   animation: wrong-shot 1s 0.5s forwards;
+}
+
+.rotate-icon:hover {
+  transition: 2s;
+  transform: rotateX(180deg);
 }
