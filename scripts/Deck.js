@@ -23,11 +23,11 @@ function _getCards(element){
     .map(cardElement => new Card(cardElement));
 }
 
-export default function Deck(element) {
-  this.element = element;
+export default function Deck() {
+  this.element = document.querySelector('.game-table');
   this.cardsSelected = [];
   this.movements = 0;
-  this.cards = _getCards(element);
+  this.cards = _getCards(this.element);
   this.shuffle();
 }
 
@@ -77,4 +77,13 @@ Deck.prototype.resetGame = function() {
   this.onMoveChange(true);
   this.cards.forEach(card => card.reset());
   this.shuffle();
+};
+
+Deck.prototype.restartGame = function() {
+  this.resetGame();
+  document.querySelector('.game-review').style.display = 'none';
+};
+
+Deck.prototype.gameFinishes = function() {
+  document.querySelector('.game-review').style.display = 'block';
 };
