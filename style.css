@@ -33,7 +33,7 @@ body {
   text-align: center;
 }
 
-
+/* Game info */
 .game-info {
   display: flex;
   width: var(--table-size);
@@ -43,6 +43,10 @@ body {
 .game-info div {
   text-align: center;
   width: 50%;
+}
+
+.hide-star {
+  display: none;
 }
 
 .reset {
