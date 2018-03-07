@@ -38,7 +38,7 @@ Deck.prototype.startGame = function() {
 
       // Only if has two cads selected continue the logic
       if (this.cardsSelected.length === 2) {
-        this.onMoveChange();
+        this.handleMovements();
         _handleMovement(...this.cardsSelected)
           .then(() => { // Cards matches
             this.successMatches++;
@@ -57,7 +57,7 @@ Deck.prototype.startGame = function() {
   }
 }
 
-Deck.prototype.onMoveChange = function (reset = false) {
+Deck.prototype.handleMovements = function (reset = false) {
   this.movements = reset ? 0 : ++this.movements;
   this.rating(this.movements);
   this._movesListener.forEach(movesHandle => movesHandle(this.movements));
@@ -68,7 +68,7 @@ Deck.prototype.resetGame = function() {
   this.timer = new Date().getTime();
   this.successMatches = 0;
   this.cards.forEach(card => card.reset());
-  this.onMoveChange(true);
+  this.handleMovements(true);
   this.shuffle();
 };
 
