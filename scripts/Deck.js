@@ -59,7 +59,6 @@ Deck.prototype.startGame = function() {
         this.onMoveChange();
         _handleMovement(...this.cardsSelected)
           .then(() => console.log('Cards match'))
-          // TODO: Remove a start
           .catch(() => console.log('Cards do not match'))
           .finally(() => this.cardsSelected = []);
       }
@@ -81,14 +80,14 @@ Deck.prototype.onMoveChange = function (reset = false) {
 
 Deck.prototype.resetGame = function() {
   this.cardsSelected = [];
-  this.onMoveChange(true);
+  this.timer = new Date().getTime();
   this.cards.forEach(card => card.reset());
+  this.onMoveChange(true);
   this.shuffle();
 };
 
 Deck.prototype.restartGame = function() {
   this.resetGame();
-  this.timer = new Date().getTime();
   document.querySelector('.game-review').style.display = 'none';
 };
 
@@ -97,6 +96,7 @@ Deck.prototype.gameFinishes = function() {
 };
 
 Deck.prototype.rating = function(moves) {
+  // TODO: I think this logic is ugly. It should be improved
   if (moves === 0) {
     [...document.querySelectorAll('.full-star')].forEach(star => star.classList.remove('hide-star'));
     [...document.querySelectorAll('.empty-star')].forEach(star => star.classList.add('hide-star'))
@@ -114,7 +114,7 @@ Deck.prototype.rating = function(moves) {
 
 Deck.prototype.gameTime = function(listener) {
   this._timerInterval = setInterval(() => {
-    const timePassed = new Date(new Date().getTime()-this.timer);
+    const timePassed = new Date(new Date().getTime() - this.timer);
     listener(_normizeTime(timePassed.getMinutes()) + ':' + _normizeTime(timePassed.getSeconds()));
   }, 1000);
 }

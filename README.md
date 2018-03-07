@@ -30,7 +30,7 @@ When a user wins the game, a modal appears to congratulate the player and ask if
 
 ### Restart Button - A restart button allows the player to reset the game board, the timer, and the star rating
 - [x] Board
-- [ ] Time
+- [x] Time
 - [x] Star rating
 
 ### Star Rating
@@ -49,7 +49,7 @@ The number of moves needed to change the rating is up to you, but it should happ
 ### Timer
 When the player starts a game, a displayed timer should also start. Once the player wins the game, the timer stops.
 
-- [ ] Show timer
+- [x] Show timer
 - [ ] Stop timer
 
 ### Move Counter
