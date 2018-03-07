@@ -134,3 +134,11 @@ ul {
   height: 100%;
   text-align: center;
 }
+
+.restart {
+  width: 7em;
+  height: 2em;
+  border-radius: 6px;
+  background-color: var(--cards-color);
+  color: #fff;
+}

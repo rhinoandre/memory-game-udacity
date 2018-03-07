@@ -1,37 +1,11 @@
-import Card from './Card';
-
-function _handleMovement(card1, card2) {
-  return new Promise((resolve, reject) => {
-    if (card1.getType() === card2.getType()) {
-      card1.markAsMatched();
-      card2.markAsMatched();
-      resolve();
-    } else {
-      card1.showWrongShotAnimation();
-      card2.showWrongShotAnimation();
-      setTimeout(() => {
-        card1.hideFace();
-        card2.hideFace();
-        reject();
-      }, 2000);
-    }
-  });
-}
-
-function _getCards(element){
-  return [...element.querySelectorAll('.card')]
-    .map(cardElement => new Card(cardElement));
-}
-
-function _normizeTime(time) {
-  return time < 10 ? `0${time}` : time;
-}
+import { _getCards, _getCurrentTime, _handleMovement, _normizeTime } from './utils';
 
 export default function Deck() {
   this.element = document.querySelector('.game-table');
   this.rateStars = document.querySelectorAll('.fa-star')
   this.cardsSelected = [];
   this.movements = 0;
+  this.successMatches = 0;
   this.cards = _getCards(this.element);
   this.timer = new Date().getTime();
   this.shuffle();
@@ -47,6 +21,7 @@ Deck.prototype.shuffle = function () {
 };
 
 Deck.prototype.startGame = function() {
+  
   this.cards.forEach(card => {
     card.element.addEventListener('click', event => {
       if (card.isAlreadyMatched() || this.cardsSelected.some(c => c === card) || this.cardsSelected.length > 1) {
@@ -58,8 +33,13 @@ Deck.prototype.startGame = function() {
       if (this.cardsSelected.length === 2) {
         this.onMoveChange();
         _handleMovement(...this.cardsSelected)
-          .then(() => console.log('Cards match'))
-          .catch(() => console.log('Cards do not match'))
+          .then(() => { // Cards matches
+            this.successMatches++;
+            if (this.successMatches === 8) { // Success matches is equal to the number of half of the cards
+               this.userWins(); // Shows win popup
+            }
+          })
+          .catch(() => console.log('Cards do not match')) // Any logic that will be triggered when cards do not match
           .finally(() => this.cardsSelected = []);
       }
     });
@@ -81,6 +61,7 @@ Deck.prototype.onMoveChange = function (reset = false) {
 Deck.prototype.resetGame = function() {
   this.cardsSelected = [];
   this.timer = new Date().getTime();
+  this.successMatches = 0;
   this.cards.forEach(card => card.reset());
   this.onMoveChange(true);
   this.shuffle();
@@ -91,8 +72,14 @@ Deck.prototype.restartGame = function() {
   document.querySelector('.game-review').style.display = 'none';
 };
 
-Deck.prototype.gameFinishes = function() {
-  document.querySelector('.game-review').style.display = 'block';
+Deck.prototype.userWins = function() {
+  const spentTime = _getCurrentTime(this.timer);
+  const gameReview = document.querySelector('.game-review');
+
+  gameReview.style.display = 'block';
+  gameReview.querySelector('.spentTime').innerHTML = spentTime;
+  gameReview.querySelector('.movementsTaken').innerHTML = this.movements;
+  gameReview.querySelector('.starsLeft').innerHTML = document.querySelectorAll('.full-star:not(.hide-star)').length;
 };
 
 Deck.prototype.rating = function(moves) {
@@ -113,8 +100,5 @@ Deck.prototype.rating = function(moves) {
 };
 
 Deck.prototype.gameTime = function(listener) {
-  this._timerInterval = setInterval(() => {
-    const timePassed = new Date(new Date().getTime() - this.timer);
-    listener(_normizeTime(timePassed.getMinutes()) + ':' + _normizeTime(timePassed.getSeconds()));
-  }, 1000);
+  setInterval(() => listener(_getCurrentTime(this.timer)), 1000);
 }
