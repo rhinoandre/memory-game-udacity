@@ -21,15 +21,16 @@ Deck.prototype.shuffle = function () {
 };
 
 Deck.prototype.startGame = function() {
-  
   this.cards.forEach(card => {
     card.element.addEventListener('click', event => {
-      if (card.isAlreadyMatched() || this.cardsSelected.some(c => c === card) || this.cardsSelected.length > 1) {
+      if (canSelectAnotherCard(card, this.cardsSelected)) {
         return;
       }
 
       this.cardsSelected.push(card);
       card.showCard();
+
+      // Only if has two cads selected continue the logic
       if (this.cardsSelected.length === 2) {
         this.onMoveChange();
         _handleMovement(...this.cardsSelected)
@@ -44,6 +45,10 @@ Deck.prototype.startGame = function() {
       }
     });
   });
+
+  function canSelectAnotherCard(newCard, cardsSelected) {
+    return newCard.isAlreadyMatched() || cardsSelected.some(c => c === newCard) || cardsSelected.length > 1
+  }
 }
 
 Deck.prototype.onMoveChange = function (reset = false) {
