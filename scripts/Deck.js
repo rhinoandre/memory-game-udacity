@@ -9,7 +9,13 @@ export default function Deck() {
   this.cards = _getCards(this.element);
   this.timer = new Date().getTime();
   this.shuffle();
+
+  this._movesListener = [];
 };
+
+Deck.prototype.onMovesChange = function (movesChangeHandler) {
+  this._movesListener.push(movesChangeHandler);
+}
 
 Deck.prototype.shuffle = function () {
   const cache = [].concat(this.cards);
@@ -54,13 +60,7 @@ Deck.prototype.startGame = function() {
 Deck.prototype.onMoveChange = function (reset = false) {
   this.movements = reset ? 0 : ++this.movements;
   this.rating(this.movements);
-  document.dispatchEvent(new CustomEvent('onmovement', {
-    detail: {
-      movements: this.movements
-    },
-    bubbles: true,
-    cancelable: true
-  }));
+  this._movesListener.forEach(movesHandle => movesHandle(this.movements));
 };
 
 Deck.prototype.resetGame = function() {
