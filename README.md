@@ -26,12 +26,12 @@ When a user wins the game, a modal appears to congratulate the player and ask if
   - [x] Congratulation message
   - [x] Restart button
   - [ ] Game time
-  - [ ] Star rating
+  - [x] Star rating
 
 ### Restart Button - A restart button allows the player to reset the game board, the timer, and the star rating
 - [x] Board
 - [ ] Time
-- [ ] Star rating
+- [x] Star rating
 
 ### Star Rating
 The game displays a star rating (from 1-3) that reflects the player's performance. At the beginning of a game, it should display 3 stars. After some number of moves, it should change to a 2 star rating. After a few more moves, it should change to a 1 star rating.
@@ -39,14 +39,18 @@ The game displays a star rating (from 1-3) that reflects the player's performanc
 The number of moves needed to change the rating is up to you, but it should happen at some point.
 
 - [x] Show 3 stars
-- [ ] Define movements for each start
-- [ ] Remove star accondingly the moves
+- [x] Remove star accondingly the moves
+- [x] Define movements for each start
+  * **0-15 moves**: 3 stars
+  * **16-23 moves**: 2 stars
+  * **24-31 moves**: 1 star
+  * **32+ moves**: 0 stars
 
 ### Timer
 When the player starts a game, a displayed timer should also start. Once the player wins the game, the timer stops.
 
 - [ ] Show timer
-- [ ] Stop time
+- [ ] Stop timer
 
 ### Move Counter
 Game displays the current number of moves a user has made.
