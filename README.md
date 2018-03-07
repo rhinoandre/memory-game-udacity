@@ -17,7 +17,7 @@ The game randomly shuffles the cards. A user wins once all cards have successful
 - [x] Review card
 - [x] Keep card reviewed if it is equal
 - [x] Hide card if it is not equal
-- [ ] Show modal when user wins
+- [x] Show modal when user wins
 
 ### Congratulations Popup
 When a user wins the game, a modal appears to congratulate the player and ask if they want to play again. It should also tell the user how much time it took to win the game, and what the star rating was.
@@ -25,7 +25,7 @@ When a user wins the game, a modal appears to congratulate the player and ask if
 * Modal
   - [x] Congratulation message
   - [x] Restart button
-  - [ ] Game time
+  - [x] Game time
   - [x] Star rating
 
 ### Restart Button - A restart button allows the player to reset the game board, the timer, and the star rating
@@ -50,7 +50,7 @@ The number of moves needed to change the rating is up to you, but it should happ
 When the player starts a game, a displayed timer should also start. Once the player wins the game, the timer stops.
 
 - [x] Show timer
-- [ ] Stop timer
+- [x] Stop timer
 
 ### Move Counter
 Game displays the current number of moves a user has made.
