@@ -2,7 +2,6 @@ import { _getCards, _getCurrentTime, _handleMovement, _normizeTime } from './uti
 
 export default function Deck() {
   this.element = document.querySelector('.game-table');
-  this.rateStars = document.querySelectorAll('.fa-star')
   this.cardsSelected = [];
   this.movements = 0;
   this.successMatches = 0;
@@ -10,11 +9,11 @@ export default function Deck() {
   this.timer = new Date().getTime();
   this.shuffle();
 
-  this._movesListener = [];
+  this._movesListeners = [];
 };
 
 Deck.prototype.onMovesChange = function (movesChangeHandler) {
-  this._movesListener.push(movesChangeHandler);
+  this._movesListeners.push(movesChangeHandler);
 }
 
 Deck.prototype.shuffle = function () {
@@ -59,8 +58,7 @@ Deck.prototype.startGame = function() {
 
 Deck.prototype.handleMovements = function (reset = false) {
   this.movements = reset ? 0 : ++this.movements;
-  this.rating(this.movements);
-  this._movesListener.forEach(movesHandle => movesHandle(this.movements));
+  this._movesListeners.forEach(movesHandle => movesHandle(this.movements));
 };
 
 Deck.prototype.resetGame = function() {
@@ -87,23 +85,6 @@ Deck.prototype.userWins = function() {
   gameReview.querySelector('.starsLeft').innerHTML = document.querySelectorAll('.full-star:not(.hide-star)').length;
 };
 
-Deck.prototype.rating = function(moves) {
-  // TODO: I think this logic is ugly. It should be improved
-  if (moves === 0) {
-    [...document.querySelectorAll('.full-star')].forEach(star => star.classList.remove('hide-star'));
-    [...document.querySelectorAll('.empty-star')].forEach(star => star.classList.add('hide-star'))
-  } else if (moves >= 16 && moves < 24 ) {
-    document.querySelectorAll('.full-star')[2].classList.add('hide-star');
-    document.querySelectorAll('.empty-star')[0].classList.remove('hide-star');
-  } else if (moves >= 24 && moves < 32) {
-    document.querySelectorAll('.full-star')[1].classList.add('hide-star');
-    document.querySelectorAll('.empty-star')[1].classList.remove('hide-star');
-  } else if (moves >= 32 ) {
-    document.querySelectorAll('.full-star')[0].classList.add('hide-star');
-    document.querySelectorAll('.empty-star')[2].classList.remove('hide-star');
-  }
-};
-
-Deck.prototype.gameTime = function(listener) {
+Deck.prototype.onTimeChanges = function(listener) {
   setInterval(() => listener(_getCurrentTime(this.timer)), 1000);
 }
