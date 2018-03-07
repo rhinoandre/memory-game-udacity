@@ -23,12 +23,17 @@ function _getCards(element){
     .map(cardElement => new Card(cardElement));
 }
 
+function _normizeTime(time) {
+  return time < 10 ? `0${time}` : time;
+}
+
 export default function Deck() {
   this.element = document.querySelector('.game-table');
   this.rateStars = document.querySelectorAll('.fa-star')
   this.cardsSelected = [];
   this.movements = 0;
   this.cards = _getCards(this.element);
+  this.timer = new Date().getTime();
   this.shuffle();
 };
 
@@ -83,6 +88,7 @@ Deck.prototype.resetGame = function() {
 
 Deck.prototype.restartGame = function() {
   this.resetGame();
+  this.timer = new Date().getTime();
   document.querySelector('.game-review').style.display = 'none';
 };
 
@@ -105,3 +111,10 @@ Deck.prototype.rating = function(moves) {
     document.querySelectorAll('.empty-star')[2].classList.remove('hide-star');
   }
 };
+
+Deck.prototype.gameTime = function(listener) {
+  this._timerInterval = setInterval(() => {
+    const timePassed = new Date(new Date().getTime()-this.timer);
+    listener(_normizeTime(timePassed.getMinutes()) + ':' + _normizeTime(timePassed.getSeconds()));
+  }, 1000);
+}
